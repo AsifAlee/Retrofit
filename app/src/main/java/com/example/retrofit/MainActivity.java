@@ -11,6 +11,7 @@ import com.example.retrofit.Model.Comment;
 import com.example.retrofit.Model.MyWebService;
 import com.example.retrofit.Model.Post;
 
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -75,7 +76,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void getComments(){
-        Call<List<Comment>> call = myWebService.getComments(5,"id","desc");
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("postId","5");
+        hashMap.put("_sort","id");
+        hashMap.put("_order","desc");
+
+        Call<List<Comment>> call = myWebService.getComments(hashMap);
         call.enqueue(new Callback<List<Comment>>() {
             @Override
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
