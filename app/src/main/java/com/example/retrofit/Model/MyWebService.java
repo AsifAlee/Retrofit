@@ -25,7 +25,13 @@ public interface MyWebService {
    /* @GET("posts/{id}/comments")
     Call<List<Comment>> getComments(@Path("id") int userId);*/
 
-   // https://jsonplaceholder.typicode.com/?postId=1
+   // https://jsonplaceholder.typicode.com/comments/?postId=1
+   /* @GET("comments")
+    Call<List<Comment>> getComments(@Query("postId") int postId);*/
+
+    // https://jsonplaceholder.typicode.com/comments/?postId=3&id=13
+    //https://jsonplaceholder.typicode.com/comments/?postId=1&_sortby=id&_orderby=desc
     @GET("comments")
-    Call<List<Comment>> getComments(@Query("postId") int postId);
+    Call<List<Comment>> getComments(@Query("postId") int postId,@Query("_sort") String sortBy,
+                             @Query("_order") String orderby);
 }

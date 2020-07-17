@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void getComments(){
-        Call<List<Comment>> call = myWebService.getComments(5);
+        Call<List<Comment>> call = myWebService.getComments(5,"id","desc");
         call.enqueue(new Callback<List<Comment>>() {
             @Override
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
