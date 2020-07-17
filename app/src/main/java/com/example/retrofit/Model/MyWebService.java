@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface MyWebService {
 
@@ -17,6 +18,9 @@ public interface MyWebService {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    @GET(FEED)
-    Call<List<Post>> getPosts();
+    //@GET(FEED)
+   // Call<List<Post>> getPosts();
+
+    @GET("posts/{id}/comments")
+    Call<List<Comment>> getComments(@Path("id") int userId);
 }
