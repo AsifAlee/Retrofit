@@ -7,6 +7,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface MyWebService {
 
@@ -21,6 +22,10 @@ public interface MyWebService {
     //@GET(FEED)
    // Call<List<Post>> getPosts();
 
-    @GET("posts/{id}/comments")
-    Call<List<Comment>> getComments(@Path("id") int userId);
+   /* @GET("posts/{id}/comments")
+    Call<List<Comment>> getComments(@Path("id") int userId);*/
+
+   // https://jsonplaceholder.typicode.com/?postId=1
+    @GET("comments")
+    Call<List<Comment>> getComments(@Query("postId") int postId);
 }
