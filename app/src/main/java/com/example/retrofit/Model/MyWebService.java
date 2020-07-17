@@ -32,6 +32,6 @@ public interface MyWebService {
     // https://jsonplaceholder.typicode.com/comments/?postId=3&id=13
     //https://jsonplaceholder.typicode.com/comments/?postId=1&_sortby=id&_orderby=desc
     @GET("comments")
-    Call<List<Comment>> getComments(@Query("postId") int postId,@Query("_sort") String sortBy,
+    Call<List<Comment>> getComments(@Query("postId") Integer postId,@Query("_sort") String sortBy,
                              @Query("_order") String orderby);
 }
