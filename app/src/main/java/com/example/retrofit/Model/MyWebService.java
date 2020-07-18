@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -73,6 +74,9 @@ public interface MyWebService {
 
     @PATCH("posts/{id}")
     Call<Post> patchPost(@Path("id") int id,@Body Post post);
+
+    @DELETE("posts/{id}")
+    Call<Void>deletePost(@Path("id") int id);
 
 
 }

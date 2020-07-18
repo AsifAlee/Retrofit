@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
         runCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PatchPost();
+
+                DeletePost();
             }
         });
     }
@@ -51,16 +52,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void putPost(){
-        Post post = new Post(1,"Updated Title","Updated body");
 
-        myWebService.putPost(5,post)
+
+
+    public void DeletePost(){
+        myWebService.deletePost(5)
                 .enqueue(new Callback<Post>() {
                     @Override
                     public void onResponse(Call<Post> call, Response<Post> response) {
                         if(response.isSuccessful()){
                             textView.append(String.valueOf(response.code()));
-                            showPost(response.body());
+
                         }
                     }
 
@@ -70,28 +72,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
-    public  void PatchPost(){
-        Post post = new Post(3,"Patched title",null);
-
-        myWebService.putPost(5,post)
-                .enqueue(new Callback<Post>() {
-                    @Override
-                    public void onResponse(Call<Post> call, Response<Post> response) {
-                        if(response.isSuccessful()){
-                            textView.append(String.valueOf(response.code()));
-                            showPost(response.body());
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Post> call, Throwable t) {
-
-                    }
-                });
-
-    }
-
 
 
 }
