@@ -36,13 +36,13 @@ public class MainActivity extends AppCompatActivity {
         runCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             createPost();
+                putPost();
             }
         });
     }
 
     private void showPost(Post post) {
-        textView.append("userId:"+post.getUserId()+"\n");
+        textView.append("\n" + "userId:"+post.getUserId()+"\n");
         textView.append("id:"+post.getId()+"\n");
         textView.append("Title:"+post.getTitle()+"\n");
         textView.append("body:"+post.getBody()+"\n");
@@ -50,32 +50,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void putPost(){
+        Post post = new Post(1,"Updated Title","Updated body");
 
+        myWebService.putPost(5,post)
+                .enqueue(new Callback<Post>() {
+                    @Override
+                    public void onResponse(Call<Post> call, Response<Post> response) {
+                        if(response.isSuccessful()){
+                            textView.append(String.valueOf(response.code()));
+                            showPost(response.body());
+                        }
+                    }
 
-    private void createPost() {
-        Map<String, String> postMap = new HashMap<>();
+                    @Override
+                    public void onFailure(Call<Post> call, Throwable t) {
 
-        postMap.put("userId", "33");
-        postMap.put("title", "My Post Title");
-        postMap.put("body", "this is my post body in the map");
-
-        Call<Post> postCall = myWebService.createPost(postMap);
-
-        postCall.enqueue(new Callback<Post>() {
-            @Override
-            public void onResponse(Call<Post> call, Response<Post> response) {
-                if (response.isSuccessful()) {
-                    textView.setText(String.valueOf(response.code()));
-                    showPost(response.body());
-                }
-            }
-            
-
-            @Override
-            public void onFailure(Call<Post> call, Throwable t) {
-
-            }
-        });
-
+                    }
+                });
     }
+
+
+
 }
