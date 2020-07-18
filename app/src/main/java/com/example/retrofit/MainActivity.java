@@ -53,9 +53,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void createPost() {
+        Map<String, String> postMap = new HashMap<>();
 
+        postMap.put("userId", "33");
+        postMap.put("title", "My Post Title");
+        postMap.put("body", "this is my post body in the map");
 
-        Call<Post> postCall = myWebService.createPost(1,"Post title","This is post body");
+        Call<Post> postCall = myWebService.createPost(postMap);
 
         postCall.enqueue(new Callback<Post>() {
             @Override
@@ -65,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                     showPost(response.body());
                 }
             }
+            
 
             @Override
             public void onFailure(Call<Post> call, Throwable t) {
