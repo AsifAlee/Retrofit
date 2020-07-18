@@ -11,6 +11,7 @@ import com.example.retrofit.Model.Comment;
 import com.example.retrofit.Model.MyWebService;
 import com.example.retrofit.Model.Post;
 
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         runCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                putPost();
+                PatchPost();
             }
         });
     }
@@ -68,6 +69,27 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+    }
+
+    public  void PatchPost(){
+        Post post = new Post(3,"Patched title",null);
+
+        myWebService.putPost(5,post)
+                .enqueue(new Callback<Post>() {
+                    @Override
+                    public void onResponse(Call<Post> call, Response<Post> response) {
+                        if(response.isSuccessful()){
+                            textView.append(String.valueOf(response.code()));
+                            showPost(response.body());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Post> call, Throwable t) {
+
+                    }
+                });
+
     }
 
 

@@ -11,6 +11,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -58,7 +59,20 @@ public interface MyWebService {
     @POST("posts")
     Call<Post> createPost(@FieldMap Map<String, String> postMap);
 
+    /**
+     * you cant update a single column with a put method
+     * while with patch method you can update a single column as
+     * well
+     * @param id
+     * @param post
+     * @return
+     */
+
     @PUT("posts/{id}")
     Call<Post> putPost(@Path("id") int id,@Body Post post);
+
+    @PATCH("posts/{id}")
+    Call<Post> patchPost(@Path("id") int id,@Body Post post);
+
 
 }
