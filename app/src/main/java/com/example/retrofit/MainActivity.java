@@ -13,6 +13,7 @@ import com.example.retrofit.Model.Post;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         runCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getComments();
+             createPost();
             }
         });
     }
@@ -48,52 +49,27 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    private void showComments(Comment comment){
-        textView.append("postId:"+comment.getPostId()+"\n");
-        textView.append("id:"+comment.getId()+"\n");
-        textView.append("name:"+comment.getName()+"\n");
-        textView.append("email:"+comment.getEmail()+"\n");
-        textView.append("body:"+comment.getBody()+"\n"+"\n");
-    }
 
-   /* public void getPosts(){
-        Call<List<Post>> call =myWebService.getPosts();
-        call.enqueue(new Callback<List<Post>>() {
+
+
+    private void createPost() {
+        Post post = new Post(1, "Post Title", "this is post body");
+        Map<String, String> postMap = new HashMap<>();
+
+
+        Call<Post> postCall = myWebService.createPost(post);
+
+        postCall.enqueue(new Callback<Post>() {
             @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                if(response.isSuccessful()){
-                    for(Post post:response.body()){
-                        showPost(post);
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
-            }
-        });
-
-    }*/
-
-
-    public void getComments(){
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("postId","5");
-        hashMap.put("_sort","id");
-        hashMap.put("_order","desc");
-
-        Call<List<Comment>> call = myWebService.getComments(hashMap);
-        call.enqueue(new Callback<List<Comment>>() {
-            @Override
-            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
-                if(response.isSuccessful()){
-                    for(Comment comment:response.body()){
-                        showComments(comment);
-                    }
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                if (response.isSuccessful()) {
+                    textView.setText(String.valueOf(response.code()));
+                    showPost(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Comment>> call, Throwable t) {
+            public void onFailure(Call<Post> call, Throwable t) {
 
             }
         });
