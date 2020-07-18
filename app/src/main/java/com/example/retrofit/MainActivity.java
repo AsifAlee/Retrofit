@@ -53,11 +53,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void createPost() {
-        Post post = new Post(1, "Post Title", "this is post body");
-        Map<String, String> postMap = new HashMap<>();
 
 
-        Call<Post> postCall = myWebService.createPost(post);
+        Call<Post> postCall = myWebService.createPost(1,"Post title","This is post body");
 
         postCall.enqueue(new Callback<Post>() {
             @Override
